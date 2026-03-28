@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import API from "./services/api";
 
 import ClientList from "./components/ClientList";
@@ -22,16 +22,16 @@ function App() {
     }
   };
 
-  const fetchTasks = async () => {
-    if (!selectedClient) return;
+  const fetchTasks = useCallback(async () => {
+  if (!selectedClient) return;
 
-    try {
-      const res = await API.get(`/tasks/${selectedClient._id}`);
-      setTasks(res.data);
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  try {
+    const res = await API.get(`/tasks/${selectedClient._id}`);
+    setTasks(res.data);
+  } catch (err) {
+    console.error(err);
+  }
+}, [selectedClient]);
 
   useEffect(() => {
     fetchClients();
@@ -39,7 +39,7 @@ function App() {
 
   useEffect(() => {
     fetchTasks();
-  }, [selectedClient]);
+  }, [fetchTasks]);
 
   const updateStatus = async (id, status) => {
     try {
