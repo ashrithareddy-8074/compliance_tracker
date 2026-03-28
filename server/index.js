@@ -19,6 +19,6 @@ mongoose.connect(process.env.MONGO_URI)
 app.use("/clients", clientRoutes);
 app.use("/tasks", taskRoutes);
 
-app.listen(6000, () => {
-  console.log("Server running on port 6000");
+app.listen(9000, () => {
+  console.log("Server running on port 9000");
 });
